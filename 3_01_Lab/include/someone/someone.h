@@ -1,6 +1,15 @@
-#ifndef _SOMEONE_H
-#define _SOMEONE_H
+/*
+ * @file    someone.h
+ * @brief   Header file of someone module
+ */
+#ifndef SOMEONE_H
+#define SOMEONE_H
 
+#include <sys/stat.h>
+
+/*
+ * @brief   type_t enumeration definition
+ */
 typedef enum
 {
     ANXIN,
@@ -8,19 +17,25 @@ typedef enum
     CONGNHAN,
 } type_t;
 
-typedef void (*action_t)();
+/*
+ * @brief   action_t function pointer definition
+ */
+typedef void (*action_t)(FILE *);
 
+/*
+ * @brief   someone_t structure definition
+ */
 typedef struct
 {
-    // public
+    // Public
     type_t type;
 
-    // private
-    void *income;
+    // Private
+    const void *income;
     action_t action;
 } someone_t;
 
-void someone_init(someone_t *psomeone, type_t type);
-void someone_print_income(someone_t *psomeone);
+void someone_init(someone_t *p_h_someone, type_t type);
+void someone_print_income(someone_t *p_h_someone);
 
-#endif
+#endif /* SOMEONE_H */
