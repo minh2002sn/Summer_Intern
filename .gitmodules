@@ -1,3 +1,6 @@
 [submodule "Basic_C_Lab"]
 	path = 01_Basic_Programming/3_01_Lab
 	url = https://github.com/minh2002sn/Basic_C_Lab
+[submodule "Summer_Intern_Report"]
+	path = Report
+	url = https://github.com/minh2002sn/Summer_Intern_Report.git
