@@ -42,18 +42,45 @@ int main()
 
 #else
 
+#define MAIN_ARG 1
+
 int main();
 
 void func_1(uint64_t param_1, uint64_t param_2)
 {
     uint64_t local_var_1 = 1;
     uint64_t local_var_2 = 2;
+#if MAIN_ARG
+    // for(int i = 0; i < 7; i++)
+    // {
+    //     printf("                [%p]: %p\n", &param_2 + 22 - i, (void *)*(&param_2 + 22 - i));
+    // }
 
+    printf("                [%p]: %p\n", &param_2 + 22, (void *)*(&param_2 + 22));
+    printf("                [%p]: %p\n", &param_2 + 21, (void *)*(&param_2 + 21));
+    printf("                [%p]: %p\n", &param_2 + 20, (void *)*(&param_2 + 20));
+    printf("                [%p]: %p\n", &param_2 + 19, (void *)*(&param_2 + 19));
+    printf("                [%p]: %p\n", &param_2 + 18, (void *)*(&param_2 + 18));
+    printf("                [%p]: %p\n", &param_2 + 17, (void *)*(&param_2 + 17));
+    printf("                [%p]: %p\n", &param_2 + 16, (void *)*(&param_2 + 16));
+
+    printf("___________ main() ___________\n");
+    printf("Last PC value   [%p]: %p\n", &param_2 + 15, (void *)*(&param_2 + 15));
+    printf("Last EBP value  [%p]: %p\n", &param_2 + 14, (void *)*(&param_2 + 14));
+    printf("main_local_var  [%p]: %p\n", &param_2 + 13, (void *)*(&param_2 + 13));
+    printf(">: Unknown :<   [%p]: %p\n", &param_2 + 12, (void *)*(&param_2 + 12));
+    printf("argc            [%p]: %p\n", &param_2 + 11, (void *)*(&param_2 + 11));
+    printf("argv            [%p]: %p\n\n", &param_2 + 10, (void *)*(&param_2 + 10));
+
+#else
+    
     printf("___________ main() ___________\n");
     printf("Last PC value   [%p]: %p\n", &param_2 + 13, (void *)*(&param_2 + 13));
     printf("Last EBP value  [%p]: %p\n", &param_2 + 12, (void *)*(&param_2 + 12));
     printf("main_local_var  [%p]: %p\n", &param_2 + 11, (void *)*(&param_2 + 11));
-    printf(">: Unknow :<    [%p]: %p\n\n", &param_2 + 10, (void *)*(&param_2 + 10));
+    printf(">: Unknown :<   [%p]: %p\n\n", &param_2 + 10, (void *)*(&param_2 + 10));
+
+#endif
 
     printf("__________ func_2() __________\n");
     printf("Last PC value   [%p]: %p\n", &param_2 + 9, (void *)*(&param_2 + 9));
@@ -70,30 +97,23 @@ void func_1(uint64_t param_1, uint64_t param_2)
     printf("param_2         [%p]: %ld\n\n", &param_2 + 0, *(&param_2 + 0));
 }
 
+// void func_2()
 void func_2(uint64_t param_1, uint64_t param_2)
 {
-    func_1(param_1, param_2);
+    func_1(2, 3);
 }
-
-void func(int a,int b)
+#if MAIN_ARG
+int main(uint64_t argc, char **argv)
 {
-    uint64_t loc = 0;
-    char *sp = (char*)&loc;
-
-    printf("main = %p\n", main);
-    printf("return address = %p\n", *(void**)(sp + 24));
-    printf("saved rbp = %p\n", *(void**)(sp + 16));
-    printf("sp = %p\n", *(void**)(sp + 8));
-    printf("loc = %ld\n", *(uint64_t*)(sp));
-    printf("a = %d\n", *(int*)(sp - 4));
-    printf("b = %d\n", *(int*)(sp - 8));
-}
-
+    uint64_t main_local_var = 0xFF;
+    printf("argc address: %p\n", &argc);
+#else
 int main()
 {
     uint64_t main_local_var = 0xFF;
-    printf("main function address: %p\n\n", main);
-    printf("func_1 function address: %p\n\n", func_1);
+#endif
+    printf("main function address: %p\n", main);
+    printf("func_1 function address: %p\n", func_1);
     printf("func_2 function address: %p\n\n", func_2);
     func_2(2, 3);
     // return 0;

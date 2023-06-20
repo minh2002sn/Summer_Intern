@@ -1,0 +1,67 @@
+main function address: 0x557ebcc58440
+func_1 function address: 0x557ebcc58169
+func_2 function address: 0x557ebcc58416
+
+___________ main() ___________
+Last PC value   [0x7ffc66491848]: 0x7fbdbfe29d90
+Last EBP value  [0x7ffc66491840]: 0x1
+main_local_var  [0x7ffc66491838]: 0xff
+>: Unknown :<   [0x7ffc66491830]: 0x1000
+
+__________ func_2() __________
+Last PC value   [0x7ffc66491828]: 0x557ebcc584bd
+Last EBP value  [0x7ffc66491820]: 0x7ffc66491840
+param_1         [0x7ffc66491818]: 2
+param_2         [0x7ffc66491810]: 3
+
+__________ func_1() __________
+Last PC value   [0x7ffc66491808]: 0x557ebcc5843d
+Last EBP value  [0x7ffc66491800]: 0x7ffc66491820
+local_var_2     [0x7ffc664917f8]: 2
+local_var_1     [0x7ffc664917f0]: 1
+param_1         [0x7ffc664917e8]: 2
+param_2         [0x7ffc664917e0]: 3
+
+
+
+
+
+
+
+
+
+OUTPUT WHEN MAIN FUNCTION HAS PARAMETER
+
+argc address: 0x7fffaaa748e8
+main function address: 0x55d074b4e5e9
+func_1 function address: 0x55d074b4e169
+func_2 function address: 0x55d074b4e5c3
+
+                [0x7fffaaa74940]: 0x7fffaaa74a18
+                [0x7fffaaa74938]: 0xeac189b1d1be3210
+                [0x7fffaaa74930]: (nil)
+                [0x7fffaaa74928]: 0x7fffaaa74a18
+                [0x7fffaaa74920]: 0x1aaa74a00
+                [0x7fffaaa74918]: 0x55d074b4e5e9
+                [0x7fffaaa74910]: (nil)
+___________ main() ___________
+Last PC value   [0x7fffaaa74908]: 0x7ff555c29d90
+Last EBP value  [0x7fffaaa74900]: 0x1
+main_local_var  [0x7fffaaa748f8]: 0xff
+>: Unknown :<   [0x7fffaaa748f0]: 0x1000
+argc            [0x7fffaaa748e8]: 0x1
+argv            [0x7fffaaa748e0]: 0x7fffaaa74a18
+
+__________ func_2() __________
+Last PC value   [0x7fffaaa748d8]: 0x55d074b4e689
+Last EBP value  [0x7fffaaa748d0]: 0x7fffaaa74900
+param_1         [0x7fffaaa748c8]: 2
+param_2         [0x7fffaaa748c0]: 3
+
+__________ func_1() __________
+Last PC value   [0x7fffaaa748b8]: 0x55d074b4e5e6
+Last EBP value  [0x7fffaaa748b0]: 0x7fffaaa748d0
+local_var_2     [0x7fffaaa748a8]: 2
+local_var_1     [0x7fffaaa748a0]: 1
+param_1         [0x7fffaaa74898]: 2
+param_2         [0x7fffaaa74890]: 3

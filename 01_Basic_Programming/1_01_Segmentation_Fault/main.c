@@ -7,6 +7,7 @@ int main()
     int *ptr = &c;
     printf("[1] Code still correct here.\n");
     *ptr = 5;
+    printf("[2] Code still correct here.\n");
 }
 
 
