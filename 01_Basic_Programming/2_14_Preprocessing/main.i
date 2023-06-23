@@ -20,5 +20,5 @@ void func_2();
 
 int main()
 {
-    float f = 2*2*3.14;
+    float f = (2)*(2)*(3.14);
 }
