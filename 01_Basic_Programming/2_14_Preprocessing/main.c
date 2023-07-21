@@ -1,12 +1,8 @@
-/* Include main.h file */
-#include "main.h"
-
-/* Macro */
-#define PI          (3.14)
-#define SQUARE(a)   (a)*(a)
-
 /* main function */
 int main()
-{
-    float f = SQUARE(2)*PI;
+{   
+    // char *line_str = __LINE__;
+    // char *file_str = __FILE__;
+    // char *date_str = __DATE__;
+    // char *time_str = __TIME__;
 }

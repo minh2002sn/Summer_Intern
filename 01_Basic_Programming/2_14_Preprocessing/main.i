@@ -5,20 +5,10 @@
 # 0 "<command-line>" 2
 # 1 "main.c"
 
-# 1 "main.h" 1
-
-
-
-void func_1();
-void func_2();
-# 3 "main.c" 2
-
-
-
-
-
-
 int main()
 {
-    float f = (2)*(2)*(3.14);
+    char *line_str = 4;
+    char *file_str = "main.c";
+    char *date_str = "Jul 12 2023";
+    char *time_str = "09:38:23";
 }
