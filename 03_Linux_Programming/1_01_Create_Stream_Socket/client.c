@@ -62,20 +62,23 @@ void chat_func(int socket_fd)
     char recv_buff[BUFF_SIZE];
     while(1)
     {
-        /* Read data from socket */
-        /* Process block until there are data to read */
-        ERROR_CHECK(read(socket_fd, recv_buff, BUFF_SIZE));
-        printf("Message frome client: %s\n", recv_buff);
-        if(strncmp("exit", recv_buff, 4))
+        memset(recv_buff, 0, BUFF_SIZE);
+        memset(send_buff, 0, BUFF_SIZE);
+        
+        /* Response the message */
+        printf("Please type the message: ");
+        fgets(send_buff, BUFF_SIZE, stdin);
+        ERROR_CHECK(write(socket_fd, send_buff, BUFF_SIZE));
+        if(strncmp("exit", send_buff, 4) == 0)
         {
             break;
         }
 
-        /* Response the message */
-        printf("Please response the message: ");
-        fgets(send_buff, BUFF_SIZE, stdin);
-        ERROR_CHECK(write(socket_fd, send_buff, BUFF_SIZE));
-        if(strncmp("exit", send_buff, 4))
+        /* Read data from socket */
+        /* Process block until there are data to read */
+        ERROR_CHECK(read(socket_fd, recv_buff, BUFF_SIZE));
+        printf("Message frome client: %s\n", recv_buff);
+        if(strncmp("exit", recv_buff, 4) == 0)
         {
             break;
         }

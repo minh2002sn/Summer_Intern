@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     
     /* Init server address */
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = port_no;
+    server_addr.sin_port =  htons(port_no);
     server_addr.sin_addr.s_addr = INADDR_ANY;
     LOG_SOCK_INFO("Server", server_addr);
 	// printf("Server address: %s\nServer port: %d\n", inet_ntoa(server_addr.sin_addr), port_no);
@@ -85,11 +85,14 @@ void chat_func(int new_socket_fd)
     char recv_buff[BUFF_SIZE];
     while(1)
     {
+        memset(send_buff, 0, BUFF_SIZE);
+        memset(recv_buff, 0, BUFF_SIZE);
+
         /* Read data from socket */
         /* Process block until there are data to read */
         ERROR_CHECK(read(new_socket_fd, recv_buff, BUFF_SIZE));
         printf("Message frome client: %s\n", recv_buff);
-        if(strncmp("exit", recv_buff, 4))
+        if(strncmp("exit", recv_buff, 4) == 0)
         {
             break;
         }
@@ -98,7 +101,7 @@ void chat_func(int new_socket_fd)
         printf("Please response the message: ");
         fgets(send_buff, BUFF_SIZE, stdin);
         ERROR_CHECK(write(new_socket_fd, send_buff, BUFF_SIZE));
-        if(strncmp("exit", send_buff, 4))
+        if(strncmp("exit", send_buff, 4) == 0)
         {
             break;
         }
