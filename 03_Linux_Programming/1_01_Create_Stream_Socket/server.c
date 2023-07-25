@@ -59,11 +59,9 @@ int main(int argc, char *argv[])
     ERROR_CHECK(bind(server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)));
 
     /* Listen to client */
-    printf("Running listen()\n");
     ERROR_CHECK(listen(server_fd, LISTEN_BACKLOG));
 
     /* Accept connection with client */
-    printf("Running accept()\n");
     client_addr_len = sizeof(client_addr);
     client_fd = accept(server_fd, (struct sockaddr *)&client_addr, (socklen_t *)&client_addr_len);
     ERROR_CHECK(client_fd);
