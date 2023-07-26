@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <fcntl.h>
 
 #define LOG_SOCK_INFO(name, addr)                       \
 printf(name " address: %s\n" name " port: %d\n", inet_ntoa(addr.sin_addr), addr.sin_port)
@@ -79,7 +80,24 @@ int main(int argc, char *argv[])
     // printf("Client address: %s\nClient port: %d\n", inet_ntoa(client_addr.sin_addr), client_addr.sin_port);
 
     /* Chat with client */
-    chat_func(client_fd);
+    // chat_func(client_fd);
+
+    /* Transfer test.txt file */
+    int test_fd = open("./input/test.txt", O_RDONLY, 0666);
+    char file_buff[BUFF_SIZE];
+
+    ERROR_CHECK(test_fd, "open()");
+    
+    int n;
+    while((n = read(test_fd, file_buff, BUFF_SIZE)) > 0)
+    {
+        ret = write(client_fd, file_buff, n);
+        ERROR_CHECK(n, "write()");
+    }
+    close(test_fd);
+
+    /* Close client socket */
+    close(client_fd);
 
     /* Close server socket */
     close(server_fd);
@@ -118,5 +136,5 @@ void chat_func(int new_socket_fd)
         }
     }
     /* Close client socket */
-    close(new_socket_fd);
+    // close(new_socket_fd);
 }

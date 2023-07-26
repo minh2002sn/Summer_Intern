@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <fcntl.h>
 
 #define ERROR_CHECK(ret, msg)						    \
 do{	                                                    \
@@ -53,41 +54,41 @@ int main(int argc, char *argv[])
     ERROR_CHECK(ret, "connect()");
 
     /* Chat with client */
-    chat_func(server_fd);
+    // chat_func(server_fd);
+
+    char recv_test_buff[BUFF_SIZE];
+    int n;
+    int recv_file_fd = open("./output/recv_test.txt", O_WRONLY | O_CREAT, 0666);
+    ERROR_CHECK(recv_file_fd, "open()");
+    
+    while((n = read(server_fd, recv_test_buff, BUFF_SIZE)) > 0)
+    {
+        ret = write(recv_file_fd, recv_test_buff, BUFF_SIZE);
+        ERROR_CHECK(ret, "write()");
+    }
+
+    int test_fd = open("./input/test.txt", O_RDONLY);
+    int m;
+    char test_buff[BUFF_SIZE];
+    int count = 1;
+    int is_error = 0;
+    while(((n = read(recv_file_fd, recv_test_buff, BUFF_SIZE)) > 0) && 
+            ((m = read(test_fd, test_buff, BUFF_SIZE)) > 0))
+    {
+        for(int i = 0; i < n; i++)
+        {
+            if(recv_test_buff[i] != test_buff[i])
+            {
+                is_error = 1;
+                printf("[%d] %d -x-> %d\n", count*10 + i, test_buff[i], recv_test_buff[i]);
+            }
+        }
+        count++;
+    }
+    printf((is_error) ? "Error.\n" : "No error.\n");
+
+    /* Close server socket */
+    close(server_fd);
 
     return 0;
-}
-
-void chat_func(int socket_fd)
-{
-    int ret = 0;
-    char send_buff[BUFF_SIZE];
-    char recv_buff[BUFF_SIZE];
-    while(1)
-    {
-        memset(recv_buff, 0, BUFF_SIZE);
-        memset(send_buff, 0, BUFF_SIZE);
-        
-        /* Response the message */
-        printf("Please type the message: ");
-        fgets(send_buff, BUFF_SIZE, stdin);
-        ret = write(socket_fd, send_buff, BUFF_SIZE);
-        ERROR_CHECK(ret, "write()");
-        if(strncmp("exit", send_buff, 4) == 0)
-        {
-            break;
-        }
-
-        /* Read data from socket */
-        /* Process block until there are data to read */
-        ret = read(socket_fd, recv_buff, BUFF_SIZE);
-        ERROR_CHECK(ret, "read()");
-        printf("Message frome client: %s\n", recv_buff);
-        if(strncmp("exit", recv_buff, 4) == 0)
-        {
-            break;
-        }
-    }
-    /* Close server socket */
-    close(socket_fd);
 }
