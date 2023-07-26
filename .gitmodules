@@ -4,3 +4,12 @@
 [submodule "Summer_Intern_Report"]
 	path = Report
 	url = https://github.com/minh2002sn/Summer_Intern_Report.git
+[submodule "03_Linux_Programming/LinuxProgramming_StreamSockLab"]
+	path = 03_Linux_Programming/3_TCP_Socket_Exercise
+	url = https://github.com/minh2002sn/LinuxProgramming_StreamSockLab.git
+[submodule "03_Linux_Programming/LinuxProgramming_DgramSockLab"]
+	path = 03_Linux_Programming/5_UDP_Socket_Exercise
+	url = https://github.com/minh2002sn/LinuxProgramming_DgramSockLab.git
+[submodule "03_Linux_Programming/LinuxProgramming_RequestFileLab"]
+	path = 03_Linux_Programming/6_FileRequestExercise
+	url = https://github.com/minh2002sn/LinuxProgramming_RequestFileLab.git
