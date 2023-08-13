@@ -28,6 +28,7 @@ int main()
 
     key = ftok(KEY_FILE_PATH, PROJ_ID);
     ERROR_CHECK(key, "ftok()");
+    printf("key = %d\n", key);
 
     sem_id = semget(key, 1, 0666 | IPC_CREAT | IPC_EXCL);
 
@@ -74,7 +75,7 @@ int main()
         sem_arg.buf = &sem_ds;
         for(int i = 0; i < MAX_TRIES; i++)
         {
-            ret = semctl(sem_id, 0, IPC_STAT, sem_arg);
+            ret = semctl(sem_id, 1, IPC_STAT, sem_arg);
             ERROR_CHECK(ret, "semctl()");
             if(sem_ds.sem_otime != 0)
                 break;
@@ -87,24 +88,29 @@ int main()
             exit(EXIT_FAILURE);
         }
         
-        ret = semctl(sem_id, 0, GETVAL, sem_arg);
-        ERROR_CHECK(ret, "semctl()");
+        printf("sem_ds.sem_otime = %ld\n", sem_ds.sem_otime);
+        printf("sem_ds.sem_perm.__seq = %d\n", sem_ds.sem_perm.__seq);
+        int sem_val = semctl(sem_id, 0, GETVAL);
+        ERROR_CHECK(sem_val, "semctl()");
 
-        if(sem_arg.val != 0)
+        if(sem_val != 0)
         {
-            printf("Semaphore's value is %d\n", sem_arg.val);
-            // sem_op.sem_num = 0;
-            // sem_op.sem_op = -1;
-            // sem_op.sem_flg = 0;
-            // ret = semop(sem_id, &sem_op, 1);
-            // ERROR_CHECK(ret, "semop()");
+            printf("Semaphore's value is %d\n", sem_val);
+            sem_op.sem_num = 0;
+            sem_op.sem_op = -1;
+            sem_op.sem_flg = 0;
+            ret = semop(sem_id, &sem_op, 1);
+            ERROR_CHECK(ret, "semop()");
+            int sem_val = semctl(sem_id, 0, GETVAL);
+            ERROR_CHECK(sem_val, "semctl()");
+            printf("Semaphore's value is %d\n", sem_val);
         }
         else
         {
             printf("Semaphore's value is 0\n");
         }
 
-        semctl(sem_id, 0, IPC_RMID);
+        ret = semctl(sem_id, 0, IPC_RMID);
         ERROR_CHECK(ret, "semctl()");
 
     }
