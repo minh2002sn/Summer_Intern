@@ -82,7 +82,7 @@ void chat_func(int socket_fd)
         /* Process block until there are data to read */
         ret = read(socket_fd, recv_buff, BUFF_SIZE);
         ERROR_CHECK(ret, "read()");
-        printf("Message frome client: %s\n", recv_buff);
+        printf("Message frome server: %s\n", recv_buff);
         if(strncmp("exit", recv_buff, 4) == 0)
         {
             break;
