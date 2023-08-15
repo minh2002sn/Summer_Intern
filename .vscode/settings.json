@@ -1,14 +1,5 @@
 {
     "files.associations": {
-        "stdio.h": "c",
-        "main.h": "c",
-        "input.h": "c",
-        "output.h": "c",
-        "inet.h": "c",
-        "client.h": "c",
-        "stat.h": "c",
-        "errno.h": "c",
-        "features.h": "c",
-        "mqueue.h": "c"
+        "app_main.h": "c"
     }
 }

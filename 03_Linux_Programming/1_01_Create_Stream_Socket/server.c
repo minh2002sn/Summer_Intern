@@ -101,7 +101,14 @@ void chat_func(int new_socket_fd)
         /* Process block until there are data to read */
         ret = read(new_socket_fd, recv_buff, BUFF_SIZE);
         ERROR_CHECK(ret, "read()");
-        printf("Message frome client: %s\n", recv_buff);
+        // printf("Message frome client: %s\n", recv_buff);
+        printf("Number of byte: %d\n", ret);
+        for(int i = 0; i < ret; i++)
+        {
+            printf("%d ", recv_buff[i]);
+        }
+        printf("\n");
+
         if(strncmp("exit", recv_buff, 4) == 0)
         {
             break;

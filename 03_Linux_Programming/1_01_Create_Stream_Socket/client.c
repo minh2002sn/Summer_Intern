@@ -71,7 +71,7 @@ void chat_func(int socket_fd)
         /* Response the message */
         printf("Please type the message: ");
         fgets(send_buff, BUFF_SIZE, stdin);
-        ret = write(socket_fd, send_buff, BUFF_SIZE);
+        // ret = write(socket_fd, send_buff, BUFF_SIZE);
         ERROR_CHECK(ret, "write()");
         if(strncmp("exit", send_buff, 4) == 0)
         {
